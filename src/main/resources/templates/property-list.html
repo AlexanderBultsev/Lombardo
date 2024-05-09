@@ -1,10 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Properties</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="row framed w100">
+        <strong>Properties</strong>
+    </div>
+
+    <div class="column" th:switch="${properties.size()}">
+        <div class="info framed" th:case="0">No properties</div>
+        <div class="row framed" th:each="property : ${properties}">
+            <div>
+                <strong>name</strong>
+                <div th:text="${property.name}"></div>
+            </div>
+            <div>
+                <strong>type</strong>
+                <div th:text="${property.type}"></div>
+            </div>
+            <div>
+                <strong>price</strong>
+                <div th:text="${property.price}"></div>
+            </div>
+            <div>
+                <strong>loan</strong>
+                <div th:text="${property.loan.status}"></div>
+            </div>
+            <a class="blue-btn align-right" th:href="@{/property/{id}(id=${property.id})}">GO</a>
+        </div>
+    </div>
+</main>
+<script src="/static/js/script.js"></script>
 </body>
 </html>

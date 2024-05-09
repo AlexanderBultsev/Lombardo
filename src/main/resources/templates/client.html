@@ -1,10 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Client</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="row framed w100">
+        <div class="column">
+            <strong class="align-left">Client info</strong>
+            <div class="row framed">
+                <div>
+                    <strong>name</strong>
+                    <div th:text="${client.name}"></div>
+                </div>
+                <div>
+                    <strong>phone</strong>
+                    <div th:text="${client.tel}"></div>
+                </div>
+                <div>
+                    <strong>balance</strong>
+                    <div th:text="${client.balance}"></div>
+                </div>
+            </div>
+        </div>
+        <a class="red-btn align-right" th:href="@{/client/{id}/del(id=${client.id})}">DELETE</a>
+    </div>
+
+    <div class="row framed w100">
+        <strong>Loans</strong>
+        <a class="show-btn green-btn align-right" onclick="toggleForm()">ADD</a>
+    </div>
+
+    <div class="column form-container">
+        <div class="row w100">
+            <strong>New loan</strong>
+            <strong class="hide-btn" onclick="toggleForm()">✕</strong>
+        </div>
+        <div class="column framed">
+            <strong class="align-left">New property</strong>
+            <form class="row framed" th:action="@{/loan/add}" th:object="${propertyDTO}" method="post">
+                <div>
+                    <strong>name</strong>
+                    <label for="name"><input type="text" th:field="*{name}" id="name"></label>
+                </div>
+                <div>
+                    <strong>type</strong>
+                    <label for="type"><input type="text" th:field="*{type}" id="type"></label>
+                </div>
+                <div>
+                    <strong>price</strong>
+                    <label for="price"><input type="text" th:field="*{price}" id="price" required="required"></label>
+                </div>
+                <input type="hidden"  th:attr="name='clientId'" th:value="${client.id}"/>
+                <input class="green-btn align-right" type="submit" value="ADD">
+            </form>
+        </div>
+    </div>
+
+    <div class="column" th:switch="${client.loans.size()}">
+        <div class="info framed" th:case="0">No loans yet</div>
+        <div class="row framed" th:each="loan : ${client.loans}">
+            <div>
+                <strong>property</strong>
+                <div th:text="${loan.property.name}"></div>
+            </div>
+            <div>
+                <strong>price</strong>
+                <div th:text="${loan.property.price}"></div>
+            </div>
+            <div>
+                <strong>start date</strong>
+                <div th:text="${#dates.format(loan.open, 'dd.MM.yyyy')}"></div>
+            </div>
+            <div>
+                <strong>end date</strong>
+                <div th:text="${#dates.format(loan.close, 'dd.MM.yyyy')}"></div>
+            </div>
+            <div>
+                <strong>status</strong>
+                <div th:text="${loan.status}"></div>
+            </div>
+            <a class="blue-btn align-right" th:href="@{/loan/{id}(id=${loan.id})}">GO</a>
+        </div>
+    </div>
+</main>
+<script src="/static/js/script.js"></script>
 </body>
 </html>

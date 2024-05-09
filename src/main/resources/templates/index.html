@@ -1,10 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="column framed w100">
+        <strong>Lombardo services</strong>
+        <div>Everything You need for lombard business</div>
+    </div>
+
+    <div class="row framed w100">
+        <a class="blue-btn" th:href="@{/client}">Clients</a>
+        <a class="blue-btn" th:href="@{/loan}">Loans</a>
+        <a class="blue-btn align-left" th:href="@{/property}">Properties</a>
+    </div>
+</main>
 </body>
 </html>

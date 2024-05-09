@@ -1,2 +1,8 @@
-package com.pristine.lombardo.addition;public class LoanStatus {
+package com.pristine.lombardo.addition;
+
+public enum LoanStatus {
+    OPENED,
+    REDEEMED,
+    EXPIRED,
+    CLOSED
 }

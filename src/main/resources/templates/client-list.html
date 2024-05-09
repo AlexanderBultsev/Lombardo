@@ -1,10 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Clients</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="row framed w100">
+        <strong>Clients</strong>
+        <form class="row w100" action="" method="get">
+            <div>
+                <strong>phone</strong>
+                <label for="findTel"><input type="tel" name="findTel" id="findTel"></label>
+            </div>
+            <input class="blue-btn align-right" type="submit" value="FIND">
+        </form>
+        <a class="show-btn green-btn align-right" onclick="toggleForm()">ADD</a>
+    </div>
+
+    <div class="column form-container">
+        <div class="row w100">
+        <strong>New client</strong>
+        <strong class="hide-btn" onclick="toggleForm()">✕</strong>
+        </div>
+        <form class="row framed" th:action="@{/client/add}" th:object="${clientDTO}" method="post">
+            <div>
+                <strong>name</strong>
+                <label for="name"><input type="text" th:field="*{name}" id="name"></label>
+            </div>
+            <div>
+                <strong>phone</strong>
+                <label for="tel"><input type="tel" th:field="*{tel}" id="tel" required="required"></label>
+            </div>
+            <input class="green-btn align-right" type="submit" value="ADD">
+        </form>
+    </div>
+
+    <div class="column" th:switch="${clients.size()}">
+        <div class="info framed" th:case="0">No clients</div>
+        <div class="row framed" th:each="client : ${clients}">
+            <div>
+                <strong>name</strong>
+                <div th:text="${client.name}"></div>
+            </div>
+            <div>
+                <strong>phone</strong>
+                <div th:text="${client.tel}"></div>
+            </div>
+            <div>
+                <strong>balance</strong>
+                <div th:text="${client.balance}"></div>
+            </div>
+            <a class="blue-btn align-right" th:href="@{/client/{id}(id=${client.id})}">GO</a>
+        </div>
+    </div>
+</main>
+<script src="/static/js/script.js"></script>
 </body>
 </html>

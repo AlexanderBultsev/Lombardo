@@ -1,10 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Error</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="warn column framed">
+        <strong>ERROR</strong>
+        <div th:text="${error}"></div>
+    </div>
+</main>
 </body>
 </html>

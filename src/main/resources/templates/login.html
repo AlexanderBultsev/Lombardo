@@ -1,10 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <!-- error message -->
+    <div class="warn framed" th:if="${param.error}">
+        Invalid telephone or password
+    </div>
+
+    <!-- logout message -->
+    <div class="info framed" th:if="${param.logout}">
+        Login successful
+    </div>
+
+    <div class="column">
+        <strong class="align-left">Login</strong>
+        <form class="column framed" th:action="@{/login}" method="post">
+            <div>
+                <label for="username"><strong>phone</strong></label>
+                <input type="text" id="username" name="username" autofocus="autofocus"/>
+            </div>
+
+            <div>
+                <label for="password"><strong>password</strong></label>
+                <input type="password" id="password" name="password"/>
+            </div>
+
+            <input  class="blue-btn align-right" type="submit" name="login-submit" id="login-submit" value="LOGIN"/>
+        </form>
+    </div>
+</main>
 </body>
 </html>

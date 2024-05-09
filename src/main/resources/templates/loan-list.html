@@ -1,10 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Loans</title>
+    <link type="image/x-icon" href="/static/img/favicon.ico" rel="shortcut icon">
+    <link rel="stylesheet" href="/static/css/style.css">
 </head>
+
 <body>
-$END$
+<nav th:replace="~{frag :: nav}"></nav>
+
+<main>
+    <div class="row framed w100">
+        <strong>Loans</strong>
+        <form class="row w100" action="" method="get">
+            <div>
+                <strong>status</strong>
+                <label for="status">
+                    <select name="status" id="status">
+                        <option value="">ANY</option>
+                        <option value="OPENED">OPENED</option>
+                        <option value="REDEEMED">REDEEMED</option>
+                        <option value="EXPIRED">EXPIRED</option>
+                        <option value="CLOSED">CLOSED</option>
+                    </select>
+                </label>
+            </div>
+            <input class="blue-btn align-right" type="submit" value="FIND">
+        </form>
+    </div>
+
+    <div class="column" th:switch="${loans.size()}">
+        <div class="info framed" th:case="0">No loans</div>
+        <div class="row framed" th:each="loan : ${loans}">
+            <div class="column">
+                <strong class="align-left">Client info</strong>
+                <div class="row framed">
+                    <div>
+                        <strong>name</strong>
+                        <div th:text="${loan.client.name}"></div>
+                    </div>
+                    <div>
+                        <strong>tel</strong>
+                        <div th:text="${loan.client.tel}"></div>
+                    </div>
+                    <div>
+                        <strong>balance</strong>
+                        <div th:text="${loan.client.balance}"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                <strong class="align-left">Property info</strong>
+                <div class="row framed">
+                    <div>
+                        <strong>name</strong>
+                        <div th:text="${loan.property.name}"></div>
+                    </div>
+                    <div>
+                        <strong>type</strong>
+                        <div th:text="${loan.property.type}"></div>
+                    </div>
+                    <div>
+                        <strong>price</strong>
+                        <div th:text="${loan.property.price}"></div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <strong>start date</strong>
+                <div th:text="${#dates.format(loan.open, 'dd.MM.yyyy')}"></div>
+            </div>
+            <div>
+                <strong>end date</strong>
+                <div th:text="${#dates.format(loan.close, 'dd.MM.yyyy')}"></div>
+            </div>
+            <div>
+                <strong>status</strong>
+                <div th:text="${loan.status}"></div>
+            </div>
+            <a class="blue-btn align-right" th:href="@{/loan/{id}(id=${loan.id})}">GO</a>
+        </div>
+    </div>
+</main>
+<script src="/static/js/script.js"></script>
 </body>
 </html>

@@ -1,10 +1,28 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+<nav th:fragment="nav">
+    <a class="blue-btn" th:href="@{/client}">Clients</a>
+    <a class="blue-btn" th:href="@{/loan}">Loans</a>
+    <a class="blue-btn" th:href="@{/property}">Properties</a>
+
+    <a class="blue-btn align-right" th:if="${#authentication.name == 'anonymousUser'}" th:href="@{/login}">Login</a>
+    <a class="blue-btn" th:if="${#authentication.name == 'anonymousUser'}" th:href="@{/registration}">Register</a>
+
+    <a class="blue-btn align-right" th:if="${#authentication.name != 'anonymousUser'}" th:text="${#authentication.name}"></a>
+    <a class="grey-btn" th:if="${#authentication.name != 'anonymousUser'}" href="javascript: document.logoutForm.submit()">Logout</a>
+
+    <form name="logoutForm" th:action="@{/logout}" method="post" th:hidden="true">
+        <input hidden type="submit"/>
+    </form>
+</nav>
+
+<div th:fragment="loan-status-select">
+    <strong>status</strong>
+    <label for="status">
+        <select name="status" id="status">
+            <option value="">ANY</option>
+            <option value="OPENED">OPENED</option>
+            <option value="REDEEMED">REDEEMED</option>
+            <option value="EXPIRED">EXPIRED</option>
+            <option value="CLOSED">CLOSED</option>
+        </select>
+    </label>
+</div>
