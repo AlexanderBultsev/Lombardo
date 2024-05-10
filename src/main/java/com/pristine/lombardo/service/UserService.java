@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
                 userDTO.getTel(),
                 passwordEncoder.encode(userDTO.getPassword()),
                 List.of(new Role("ADMIN")));
-
         return userRepository.save(user);
     }
 

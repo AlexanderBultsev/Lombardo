@@ -22,7 +22,6 @@ public class PropertyService {
                 propertyDTO.getName(),
                 propertyDTO.getType(),
                 propertyDTO.getPrice());
-
         return propertyRepository.save(property);
     }
 

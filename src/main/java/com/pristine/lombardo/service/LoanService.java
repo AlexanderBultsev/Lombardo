@@ -23,10 +23,8 @@ public class LoanService {
 
     @Autowired
     private LoanRepository loanRepository;
-
     @Autowired
     private ClientRepository clientRepository;
-
     @Autowired
     private PropertyRepository propertyRepository;
 
@@ -34,9 +32,11 @@ public class LoanService {
     @Transactional
     public Loan createLoan(LoanDTO loanDTO) throws NoSuchElementException {
         Client client = clientRepository.findById(loanDTO.getClientId())
-                .orElseThrow(() -> new NoSuchElementException("Client with ID: " + loanDTO.getClientId() + " not found"));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Client with ID: " + loanDTO.getClientId() + " not found"));
         Property property = propertyRepository.findById(loanDTO.getPropertyId())
-                .orElseThrow(() -> new NoSuchElementException("Property with ID: " + loanDTO.getPropertyId() + " not found"));
+                .orElseThrow(() ->
+                        new NoSuchElementException("Property with ID: " + loanDTO.getPropertyId() + " not found"));
 
         Loan loan = new Loan(
                 client,
@@ -44,7 +44,6 @@ public class LoanService {
                 Date.from(Instant.now()),
                 Date.from(Instant.now().plus(30, ChronoUnit.DAYS)),
                 LoanStatus.OPENED);
-
         return loanRepository.save(loan);
     }
 

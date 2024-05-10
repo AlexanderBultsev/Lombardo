@@ -16,7 +16,6 @@ public class ClientService {
     @Autowired
     private ClientRepository clientRepository;
 
-
     @Transactional
     public Client createClient(ClientDTO clientDTO) {
         Client client = new Client(
@@ -24,7 +23,6 @@ public class ClientService {
                 clientDTO.getTel(),
                 0F,
                 null);
-
         return clientRepository.save(client);
     }
 
